@@ -1,13 +1,18 @@
+import { getTodosGroupedByColumn } from '@/lib/getTodosGroupedByColumn';
 import { create } from 'zustand'
+
 
 interface BoardStore{
     board:Board;
     getBoard:()=>void;
 }
 
-const useBoardStore = create<BoardStore>((set) => ({
-  board: null,
-  getBoard:()=>{
-
+export const useBoardStore = create<BoardStore>((set) => ({
+  board:{
+    columns:new Map<TypedColumn, Column>()
+  },
+  getBoard:async () => {
+    const board = await getTodosGroupedByColumn();
+    set({board});
   }
 }))
