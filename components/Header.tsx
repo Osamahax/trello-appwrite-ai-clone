@@ -4,7 +4,13 @@ import trelloLogo from "@/public/Trello_logo.png";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Avatar from "react-avatar";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
+import { useBoardStore } from "@/store/BoardStore";
 const Header = () => {
+  const [searchString, setSearchString]=useBoardStore((state)=>[
+    state.searchString,
+    state.setSearchString,
+  ])
   return (
     <header>
       <div
@@ -33,6 +39,8 @@ const Header = () => {
             <input
               type="text"
               placeholder="Search"
+              value={searchString}
+              onChange={(e) => setSearchString(e.target.value)}
               className="flex-1 outline-none p-2"
             />
             <button type="submit" hidden>
